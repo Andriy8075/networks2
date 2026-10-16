@@ -2,7 +2,7 @@
   "cli": {
     "hostname": "DESKTOP-7BD93CN",
     "project": "code",
-    "collected_at": "2026-10-16T19:15:59Z",
+    "collected_at": "2026-10-16T20:14:25Z",
     "containers": [
       {
         "service": "app",
@@ -48,7 +48,7 @@
         "name": "db",
         "image": "redis:7-alpine",
         "state": "running",
-        "started_at": "2026-10-16T19:09:39.817879228Z",
+        "started_at": "2026-10-16T19:17:31.368743373Z",
         "networks": [
           {
             "name": "backend",
@@ -79,7 +79,7 @@
   "api": {
     "hostname": "docker-desktop",
     "project": "code",
-    "collected_at": "2026-10-16T19:16:02Z",
+    "collected_at": "2026-10-16T20:14:29Z",
     "containers": [
       {
         "service": "app",
@@ -125,7 +125,7 @@
         "name": "db",
         "image": "redis:7-alpine",
         "state": "running",
-        "started_at": "2026-10-16T19:09:39.817879228Z",
+        "started_at": "2026-10-16T19:17:31.368743373Z",
         "networks": [
           {
             "name": "backend",
