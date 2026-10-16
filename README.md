@@ -19,7 +19,7 @@ Python для цього запуску: 3.13.7.
 .venv\Scripts\python.exe inventory.py
 ```
 
-Скрипт створює `inventory.json` і `report.csv` у цьому каталозі. Приватний ключ у код, звіт і репозиторій не входить: у `.env` записано лише шлях `SSH_KEY`.
+Скрипт створює `inventory.json` і `report.csv` у цьому каталозі.
 
 ## Періодичний моніторинг
 
@@ -27,4 +27,4 @@ Python для цього запуску: 3.13.7.
 .venv\Scripts\python.exe inventory.py --monitor --interval 10
 ```
 
-Результат дописується у `monitoring.csv`. Зупинка скрипта: Ctrl+C. Після помилки HTTP-запиту цикл продовжується.
+Результат дописується у `monitoring.csv`.

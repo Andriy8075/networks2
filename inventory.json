@@ -2,7 +2,7 @@
   "cli": {
     "hostname": "DESKTOP-7BD93CN",
     "project": "code",
-    "collected_at": "2026-10-16T22:11:12Z",
+    "collected_at": "2026-10-16T22:29:26Z",
     "containers": [
       {
         "service": "app",
@@ -79,7 +79,7 @@
   "api": {
     "hostname": "docker-desktop",
     "project": "code",
-    "collected_at": "2026-10-16T22:11:15Z",
+    "collected_at": "2026-10-16T22:29:30Z",
     "containers": [
       {
         "service": "app",
