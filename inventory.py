@@ -7,6 +7,7 @@
 import argparse
 import csv
 import json
+import os
 import re
 import shlex
 import socket
@@ -32,28 +33,72 @@ def configure_stdio():
             stream.reconfigure(encoding="utf-8", line_buffering=True)
 
 
+def load_env(path):
+    """Прочитати KEY=VALUE з .env. Порожні рядки і коментарі пропускаються."""
+    values = {}
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        line = raw.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        values[key.strip()] = value.strip().strip('"').strip("'")
+    return values
+
+
+def env_value(env, key):
+    value = os.path.expandvars(env.get(key, "")).strip()
+    if not value:
+        raise SystemExit(f"У файлі .env немає значення {key}")
+    return value
+
+
+def apply_env(args):
+    """Заповнити параметри підключення з .env. Явно переданий прапорець має пріоритет."""
+    env_path = Path(__file__).resolve().parent / ".env"
+    if not env_path.is_file():
+        raise SystemExit(f"Файл .env не знайдено: {env_path}")
+    env = load_env(env_path)
+    if args.host is None:
+        args.host = env_value(env, "SSH_HOST")
+    if args.port is None:
+        args.port = int(env_value(env, "SSH_PORT"))
+    if args.user is None:
+        args.user = env_value(env, "SSH_USER")
+    if args.key is None:
+        args.key = env_value(env, "SSH_KEY")
+    if args.project is None:
+        args.project = env_value(env, "COMPOSE_PROJECT")
+    if args.proxy_url is None:
+        proxy_host = env_value(env, "PROXY_HOST")
+        proxy_port = env_value(env, "PROXY_PORT")
+        args.proxy_url = f"http://{proxy_host}:{proxy_port}/"
+    if args.compose_dir is None:
+        args.compose_dir = env_value(env, "COMPOSE_DIR")
+    return args
+
+
 def parse_args():
     parser = argparse.ArgumentParser(
         description="Інвентаризація та моніторинг Compose-проєкту ЛР1 через SSH."
     )
-    parser.add_argument("--host", default="127.0.0.1", help="SSH-хост Linux VM")
-    parser.add_argument("--port", type=int, default=22, help="SSH-порт")
-    parser.add_argument("--user", default="andrii", help="SSH-користувач")
+    parser.add_argument("--host", default=None, help="SSH-хост Linux VM. За замовчуванням SSH_HOST з .env")
+    parser.add_argument("--port", type=int, default=None, help="SSH-порт. За замовчуванням SSH_PORT з .env")
+    parser.add_argument("--user", default=None, help="SSH-користувач. За замовчуванням SSH_USER з .env")
     parser.add_argument(
         "--key",
         default=None,
-        help="Шлях до приватного SSH-ключа. Якщо не задано, Paramiko шукає ключі у ~/.ssh",
+        help="Шлях до приватного SSH-ключа. За замовчуванням SSH_KEY з .env",
     )
-    parser.add_argument("--project", default="code", help="Назва Compose-проєкту")
+    parser.add_argument("--project", default=None, help="Назва Compose-проєкту. За замовчуванням COMPOSE_PROJECT з .env")
     parser.add_argument(
         "--proxy-url",
-        default="http://127.0.0.1:8080/",
-        help="URL веб-проксі для HTTP-перевірки",
+        default=None,
+        help="URL веб-проксі. За замовчуванням http://PROXY_HOST:PROXY_PORT/ з .env",
     )
     parser.add_argument(
         "--compose-dir",
-        default="/mnt/c/Users/Admin/projects/NetworkLabs/lab1/code",
-        help="Каталог Compose-проєкту на Linux-хості",
+        default=None,
+        help="Каталог Compose-проєкту на Linux-хості. За замовчуванням COMPOSE_DIR з .env",
     )
     parser.add_argument(
         "--output-dir",
@@ -609,7 +654,7 @@ def monitor(args):
 
 def main():
     configure_stdio()
-    args = parse_args()
+    args = apply_env(parse_args())
     try:
         if args.monitor:
             monitor(args)

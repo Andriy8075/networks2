@@ -13,16 +13,18 @@ Python для цього запуску: 3.13.7.
 
 ## Інвентаризація
 
+Хост, порт, користувач SSH, шлях до ключа, назва проєкту, адреса проксі і каталог Compose читаються з файлу `.env` поруч зі скриптом. Зразок імен змінних є у `.env.example`.
+
 ```text
-.venv\Scripts\python.exe inventory.py --host 127.0.0.1 --port 22 --user andrii --key %USERPROFILE%\.ssh\id_rsa --project code --proxy-url http://127.0.0.1:8080/ --compose-dir /mnt/c/Users/Admin/projects/NetworkLabs/lab1/code
+.venv\Scripts\python.exe inventory.py
 ```
 
-Скрипт створює `inventory.json` і `report.csv` у цьому каталозі. Приватний ключ у код і звіт не входить: шлях передається параметром `--key`.
+Скрипт створює `inventory.json` і `report.csv` у цьому каталозі. Приватний ключ у код, звіт і репозиторій не входить: у `.env` записано лише шлях `SSH_KEY`.
 
 ## Періодичний моніторинг
 
 ```text
-.venv\Scripts\python.exe inventory.py --host 127.0.0.1 --port 22 --user andrii --key %USERPROFILE%\.ssh\id_rsa --project code --proxy-url http://127.0.0.1:8080/ --monitor --interval 10
+.venv\Scripts\python.exe inventory.py --monitor --interval 10
 ```
 
 Результат дописується у `monitoring.csv`. Зупинка скрипта: Ctrl+C. Після помилки HTTP-запиту цикл продовжується.

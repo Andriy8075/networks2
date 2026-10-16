@@ -25,11 +25,12 @@ env = load_env(Path(__file__).resolve().parent / ".env")
 user = require(env, "SSH_USER")
 host = require(env, "SSH_HOST")
 port = require(env, "SSH_PORT")
+project = require(env, "COMPOSE_PROJECT")
 
 client = docker.DockerClient(base_url=f"ssh://{user}@{host}:{port}")
 containers = client.containers.list(
     all=True,
-    filters={"label": "com.docker.compose.project=code"},
+    filters={"label": f"com.docker.compose.project={project}"},
 )
 for container in containers:
     container.reload()
