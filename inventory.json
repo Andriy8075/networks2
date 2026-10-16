@@ -1,0 +1,156 @@
+{
+  "cli": {
+    "hostname": "DESKTOP-7BD93CN",
+    "project": "code",
+    "collected_at": "2026-10-16T19:15:59Z",
+    "containers": [
+      {
+        "service": "app",
+        "id": "1df62f3991211a7718ba023ee75b924fdd7e352fcdc62dc8755b4b7f39454f7b",
+        "name": "code-app-1",
+        "image": "my-app:latest",
+        "state": "running",
+        "started_at": "2026-10-16T19:09:45.932895852Z",
+        "networks": [
+          {
+            "name": "backend",
+            "ip": "172.30.0.4"
+          },
+          {
+            "name": "frontend",
+            "ip": "172.29.0.3"
+          }
+        ],
+        "published_ports": []
+      },
+      {
+        "service": "app",
+        "id": "898599a2589a806535fdcd1f8e2a47bfb64d0d5c99ad04cf78fe0984aed96a0f",
+        "name": "code-app-2",
+        "image": "my-app:latest",
+        "state": "running",
+        "started_at": "2026-10-16T19:09:45.569160791Z",
+        "networks": [
+          {
+            "name": "backend",
+            "ip": "172.30.0.3"
+          },
+          {
+            "name": "frontend",
+            "ip": "172.29.0.2"
+          }
+        ],
+        "published_ports": []
+      },
+      {
+        "service": "db",
+        "id": "37aff62c0b4a7155376d80996a0d29b335b654b1240f2a4d7fde34260040a749",
+        "name": "db",
+        "image": "redis:7-alpine",
+        "state": "running",
+        "started_at": "2026-10-16T19:09:39.817879228Z",
+        "networks": [
+          {
+            "name": "backend",
+            "ip": "172.30.0.2"
+          }
+        ],
+        "published_ports": []
+      },
+      {
+        "service": "proxy",
+        "id": "601dab2c5ae8565440a5463f6b9bbfab0081ea428921fbf288e0cd6c69031f72",
+        "name": "proxy",
+        "image": "nginx:alpine",
+        "state": "running",
+        "started_at": "2026-10-16T19:09:51.796034667Z",
+        "networks": [
+          {
+            "name": "frontend",
+            "ip": "172.29.0.4"
+          }
+        ],
+        "published_ports": [
+          "80/tcp -> 0.0.0.0:8080"
+        ]
+      }
+    ]
+  },
+  "api": {
+    "hostname": "docker-desktop",
+    "project": "code",
+    "collected_at": "2026-10-16T19:16:02Z",
+    "containers": [
+      {
+        "service": "app",
+        "id": "1df62f3991211a7718ba023ee75b924fdd7e352fcdc62dc8755b4b7f39454f7b",
+        "name": "code-app-1",
+        "image": "my-app:latest",
+        "state": "running",
+        "started_at": "2026-10-16T19:09:45.932895852Z",
+        "networks": [
+          {
+            "name": "backend",
+            "ip": "172.30.0.4"
+          },
+          {
+            "name": "frontend",
+            "ip": "172.29.0.3"
+          }
+        ],
+        "published_ports": []
+      },
+      {
+        "service": "app",
+        "id": "898599a2589a806535fdcd1f8e2a47bfb64d0d5c99ad04cf78fe0984aed96a0f",
+        "name": "code-app-2",
+        "image": "my-app:latest",
+        "state": "running",
+        "started_at": "2026-10-16T19:09:45.569160791Z",
+        "networks": [
+          {
+            "name": "backend",
+            "ip": "172.30.0.3"
+          },
+          {
+            "name": "frontend",
+            "ip": "172.29.0.2"
+          }
+        ],
+        "published_ports": []
+      },
+      {
+        "service": "db",
+        "id": "37aff62c0b4a7155376d80996a0d29b335b654b1240f2a4d7fde34260040a749",
+        "name": "db",
+        "image": "redis:7-alpine",
+        "state": "running",
+        "started_at": "2026-10-16T19:09:39.817879228Z",
+        "networks": [
+          {
+            "name": "backend",
+            "ip": "172.30.0.2"
+          }
+        ],
+        "published_ports": []
+      },
+      {
+        "service": "proxy",
+        "id": "601dab2c5ae8565440a5463f6b9bbfab0081ea428921fbf288e0cd6c69031f72",
+        "name": "proxy",
+        "image": "nginx:alpine",
+        "state": "running",
+        "started_at": "2026-10-16T19:09:51.796034667Z",
+        "networks": [
+          {
+            "name": "frontend",
+            "ip": "172.29.0.4"
+          }
+        ],
+        "published_ports": [
+          "80/tcp -> 0.0.0.0:8080"
+        ]
+      }
+    ]
+  }
+}
